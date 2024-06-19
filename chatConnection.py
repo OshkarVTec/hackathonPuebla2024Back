@@ -9,14 +9,15 @@ def chat_with_gpt(prompt):
         messages=[
             {
                 "role": "system",
-                "content": "Vas a recibir una transcripción completa de una clase. Devuelve un resumen bien estructurado de la clase",
+                "content": "Vas a recibir una transcripción completa de una clase. Devuelve un JSON con la siguiente estructura: \{ titulo: 'titulo de la clase', materia: 'materia de la clase', texto: 'un resumen bien estructurado de la clase'\}",
             },
             {"role": "user", "content": prompt},
         ],
+        response_format={"type": "json_object"},
     )
     return response.choices[0].message.content
 
 
 user_input = input("How may I help you? ")
 Ask_chatgpt = chat_with_gpt(user_input)
-print(f"Assistant: {Ask_chatgpt}")
+print(f"{Ask_chatgpt}")
