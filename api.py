@@ -40,9 +40,9 @@ def hello_world():
 @app.route("/summary", methods=["POST"])
 def summary():
     data = request.get_json()
-    title = data["titulo"]
-    subject = data["materia"]
-    text = data["texto"]
+    title = data["text"]
+    subject = data["text"]
+    text = data["text"]
     conn = get_db_connection()
     conn.execute(
         "INSERT INTO notes (texto, materia, titulo) VALUES (?, ?, ?)",
