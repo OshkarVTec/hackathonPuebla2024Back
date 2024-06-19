@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from openai import OpenAI
 from flask import request, g
+from flask_cors import CORS
 import sqlite3
 
 client = OpenAI()
@@ -27,6 +28,7 @@ def chat_with_gpt(prompt):
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
