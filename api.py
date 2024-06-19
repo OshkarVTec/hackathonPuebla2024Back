@@ -40,10 +40,14 @@ def hello_world():
 @app.route("/summary", methods=["POST"])
 def summary():
     data = request.get_json()
-    content = data["text"]
-    print(content)
+    title = data["titulo"]
+    subject = data["materia"]
+    text = data["texto"]
     conn = get_db_connection()
-    conn.execute("INSERT INTO notes (content) VALUES (?)", (content,))
+    conn.execute(
+        "INSERT INTO notes (texto, materia, titulo) VALUES (?, ?, ?)",
+        (text, subject, title),
+    )
     conn.commit()
     return jsonify({"message": "Data created successfully"}), 201
 
