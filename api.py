@@ -19,10 +19,11 @@ def chat_with_gpt(prompt):
         messages=[
             {
                 "role": "system",
-                "content": "You will receive a full transcription of a class. Return a summary well structured of the class",
+                "content": "Vas a recibir una transcripción completa de una clase. Devuelve un JSON con la siguiente estructura: \{ titulo: 'titulo de la clase', materia: 'materia de la clase', texto: 'un resumen bien estructurado de la clase'\}",
             },
             {"role": "user", "content": prompt},
         ],
+        response_format={"type": "json_object"},
     )
     return response.choices[0].message.content
 
