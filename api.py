@@ -61,6 +61,15 @@ def get_all_notes():
     return jsonify(notes_list)
 
 
+@app.route("/notes/<int:note_id>", methods=["GET"])
+def get_note_by_id(note_id):
+    conn = get_db_connection()
+    note = conn.execute("SELECT * FROM notes WHERE id=?", (note_id,)).fetchone()
+    if note is None:
+        return jsonify({"message": "Note not found"}), 404
+    return jsonify(dict(note))
+
+
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, "_database", None)
