@@ -38,8 +38,8 @@ def hello_world():
 
 @app.route("/summary", methods=["POST"])
 def summary():
-    # response = chat_with_gpt(request.form['text'])
-    content = request.form["text"]
+    data = request.get_json()
+    content = data["text"]
     print(content)
     conn = get_db_connection()
     conn.execute("INSERT INTO notes (content) VALUES (?)", (content,))
