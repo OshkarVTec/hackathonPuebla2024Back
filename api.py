@@ -1,3 +1,4 @@
+import json
 from flask import Flask, jsonify
 from openai import OpenAI
 from flask import request, g
@@ -39,10 +40,13 @@ def hello_world():
 
 @app.route("/summary", methods=["POST"])
 def summary():
-    data = request.get_json()
-    title = data["text"]
-    subject = data["text"]
-    text = data["text"]
+    text = request.get_json()["text"]
+    chat_response = chat_with_gpt(text)
+    print(chat_response)
+    data = json.loads(chat_response)
+    title = data["titulo"]
+    subject = data["materia"]
+    text = data["texto"]
     conn = get_db_connection()
     conn.execute(
         "INSERT INTO notes (texto, materia, titulo) VALUES (?, ?, ?)",
